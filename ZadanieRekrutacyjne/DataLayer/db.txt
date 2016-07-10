@@ -1,0 +1,5 @@
+﻿Add-Migration -ProjectName DataLayer -StartUpProjectName PresentationLayer
+
+Update-Database -ProjectName DataLayer -StartUpProjectName PresentationLayer 
+
+Update-Database -ProjectName DataLayer -StartUpProjectName PresentationLayer -TargetMigration:0

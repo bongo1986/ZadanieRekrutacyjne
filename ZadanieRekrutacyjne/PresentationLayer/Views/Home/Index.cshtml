@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<p>Inspired by this <a href="http://bootsnipp.com/snippets/featured/panel-tables-with-filter">snippet</a></p>
+<div class="row">
+    <form name="FilterForm" dd-client-validation>
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="panel-title">Contracts</h3>
+                    </div>
+                    <div class="col-sm-3">
+
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-default btn-xs btn-add" ng-click="mCtrl.addNewDevConterct()"><span class="glyphicon glyphicon-plus"></span>Add new contract</button>
+                            <button class="btn btn-default btn-xs btn-filter" ng-click="runifFormValid(mCtrl.filterGrid)"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <table class="table" st-pipe="mCtrl.devcontracts.getPage" st-table="mCtrl.appModel.tableRows">
+                <thead>
+                    <tr class="filters">
+                        <th></th>
+                        <th><label><input type="checkbox" ng-model="mCtrl.appModel.filter.OnlyProgrammersWith5YearsExperience" value="">5 years experience(only developers)</label></th>
+                        <th><label><input type="checkbox" ng-model="mCtrl.appModel.filter.SalaryOver500" value="">Salary over 5000</label></th>
+                        <th></th>
+                    </tr>
+                    <tr class="filters">
+                        <th><input type="text" name="Name" ng-model="mCtrl.appModel.filter.Name" ng-class="{haserror: FilterForm.posted && ( FilterForm.Name.$invalid)}" class="form-control" placeholder="Name" ng-maxlength="20"></th>
+                        <th>
+                            <div class="btn-group">
+                                <input type="radio" ng-model="mCtrl.appModel.filter.ContractType" ng-value="mCtrl.appModel.ContractType.all"> All
+                                <input type="radio" ng-model="mCtrl.appModel.filter.ContractType" ng-value="mCtrl.appModel.ContractType.developer"> Developer
+                                <input type="radio" ng-model="mCtrl.appModel.filter.ContractType" ng-value="mCtrl.appModel.ContractType.tester"> Tester
+                            </div>
+                        </th>
+                        <th><input type="number" name="Experience" ng-model="mCtrl.appModel.filter.ExperienceYears" ng-class="{haserror: FilterForm.posted &&  FilterForm.Experience.$invalid}" class="form-control" placeholder="Experience in years" max="100" min="1"></th>
+                        <th><input type="number" name="Salary" ng-model="mCtrl.appModel.filter.Salary" ng-class="{haserror: FilterForm.posted &&  FilterForm.Salary.$invalid}" class="form-control" placeholder="Salary"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="4" ng-if="mCtrl.appModel.tableRows.length == 0">
+                            No rows
+                        </td>
+                    </tr>
+                    <tr ng-if="mCtrl.appModel.tableRows.length > 0" ng-repeat="row in mCtrl.appModel.tableRows">
+                        <td>{{row.Name}}</td>
+                        <td>{{row.ContractType == mCtrl.appModel.ContractType.developer ? 'developer' : 'tester'}}</td>
+                        <td>{{row.ExperienceYears}}</td>
+                        <td>{{row.Salary}}</td>
+                    </tr>
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-center" colspan="3">
+                            <div st-pagination="" st-items-by-page="10"></div>
+                        </td>
+                        <td ng-show="mCtrl.appModel.tableRows.length > 0">
+                            Items count: {{mCtrl.appModel.tableState.pagination.totalItemCount}}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</div>
+
+

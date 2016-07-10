@@ -1,0 +1,39 @@
+﻿<form name="addNewContract" dd-client-validation>
+    <div class="modal-header">
+        <h3>{{modalOptions.headerText}}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label >Name:</label>
+            <input type="text" name="Name" class="form-control" ng-model="modalOptions.newDevContract.Name" ng-class="{haserror: addNewContract.posted && (addNewContract.Name.$error.required || addNewContract.Name.$error.maxlength)}" ng-maxlength="20" ng-required="true">
+        </div>
+        <div class="form-group">
+            <div class="btn-group">
+                <input type="radio" ng-model="modalOptions.newDevContract.ContractType" ng-value="modalOptions.contratTypeEnum.developer"> Developer
+                <input type="radio" ng-model="modalOptions.newDevContract.ContractType" ng-value="modalOptions.contratTypeEnum.tester"> Tester
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label >Experience in years:</label>
+            <input type="number" name="ExperienceYears" ng-model="modalOptions.newDevContract.ExperienceYears" ng-class="{haserror: addNewContract.posted && (addNewContract.ExperienceYears.$error.required || addNewContract.ExperienceYears.$error.min || addNewContract.ExperienceYears.$error.max)}" class="form-control" max="100" min="1" ng-required="true">
+        </div>
+
+        <div class="form-group">
+            <label>Salary:</label>
+            <label dd-dev-contracts-salary current-form="addNewContract"></label>
+        </div>
+     
+    </div>
+    <div class="modal-footer">
+        <button ng-if="modalOptions.showCancelButton" type="button" class="btn"
+                data-ng-click="modalOptions.close()">
+            {{modalOptions.closeButtonText}}
+        </button>
+        <button class="btn btn-primary"
+                data-ng-click="runifFormValid(modalOptions.ok)">
+            {{modalOptions.actionButtonText}}
+        </button>
+    </div>
+</form>
